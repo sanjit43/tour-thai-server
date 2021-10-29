@@ -40,6 +40,10 @@ app.get('/', (req, res) => {
     res.send('Hello from thailand tour')
 })
 
+app.get('/hellow', (req, res) => {
+    res.send('hello world')
+})
+
 app.listen(port, () => {
     console.log('This server is hitting from port', port)
 })
