@@ -1,0 +1,45 @@
+const express = require('express');
+require('dotenv').config();
+const { MongoClient } = require('mongodb');
+const cors = require('cors')
+const app = express();
+const port = process.env.PORT || 5000;
+
+//Add middleware
+app.use(cors())
+app.use(express.json());
+
+
+//Connect with mongodb atlas
+const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.0bfuq.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
+const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+
+async function run() {
+    try {
+        await client.connect()
+        const database = client.db('thai_tour');
+        const serviceCollection = database.collection('service')
+
+
+        //GET DATA
+        app.get('/services', async (req, res) => {
+            const cursor = serviceCollection.find({})
+            const services = await cursor.toArray()
+            res.send(services);
+        })
+
+    }
+    finally {
+        //    await client.close()
+    }
+}
+run().catch(console.dir)
+
+
+app.get('/', (req, res) => {
+    res.send('Hello from thailand tour')
+})
+
+app.listen(port, () => {
+    console.log('This server is hitting from port', port)
+})
