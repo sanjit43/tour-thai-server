@@ -41,8 +41,10 @@ async function run() {
         })
         // Post Data into address section
         app.post('/address', async (req, res) => {
-            console.log('hitting the post', req.body);
-            res.send('hit the post')
+            const address = req.body;
+            const result = await addressCollection.insertOne(address)
+            // console.log('hitting the post', req.body);
+            res.json(result)
         })
     }
     finally {
