@@ -45,6 +45,12 @@ async function run() {
             const result = await addressCollection.insertOne(address)
             res.json(result)
         })
+
+        app.get('address', async (req, res) => {
+            const cursor = addressCollection.find({})
+            const address = await cursor.toArray()
+            res.send(address);
+        })
     }
     finally {
         //    await client.close()
