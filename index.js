@@ -20,6 +20,10 @@ async function run() {
         await client.connect()
         const database = client.db('thai_tour');
         const serviceCollection = database.collection('service')
+        const addressCollection = database.collection('address');
+
+        // const add = { city: 'dhaka', country: 'bangladesh' }
+        // await addressCollection.insertOne(add)
 
 
         //GET DATA
@@ -35,7 +39,13 @@ async function run() {
             const service = await serviceCollection.findOne(query)
             res.json(service)
         })
-
+        // Post Data into address section
+        app.post('/service/address', async (req, res) => {
+            const address = req.body;
+            console.log(address)
+            // console.log('hitting the post')
+            res.send('post got hitted')
+        })
     }
     finally {
         //    await client.close()
