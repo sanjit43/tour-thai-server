@@ -43,7 +43,6 @@ async function run() {
         app.post('/address', async (req, res) => {
             const address = req.body;
             const result = await addressCollection.insertOne(address)
-            // console.log('hitting the post', req.body);
             res.json(result)
         })
     }
