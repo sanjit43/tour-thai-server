@@ -46,7 +46,7 @@ async function run() {
             res.json(result)
         })
 
-        app.get('address', async (req, res) => {
+        app.get('/address', async (req, res) => {
             const cursor = addressCollection.find({})
             const address = await cursor.toArray()
             res.send(address);
