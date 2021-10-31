@@ -51,6 +51,15 @@ async function run() {
             const address = await cursor.toArray()
             res.send(address);
         })
+
+        //DELETE Data from address
+        app.delete('/address/:id', async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: ObjectId(id) };
+            const result = await addressCollection.deleteOne(query);
+            res.json(result);
+
+        })
     }
     finally {
         //    await client.close()
